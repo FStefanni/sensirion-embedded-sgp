@@ -31,7 +31,6 @@
 
 #ifndef SGP40_H
 #define SGP40_H
-#include "sensirion_arch_config.h"
 #include "sensirion_common.h"
 #include "sensirion_i2c.h"
 

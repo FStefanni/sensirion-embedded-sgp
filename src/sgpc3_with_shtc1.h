@@ -31,7 +31,6 @@
 
 #ifndef SGPC3_WITH_SHTC1_H
 #define SGPC3_WITH_SHTC1_H
-#include "sensirion_arch_config.h"
 #include "sensirion_common.h"
 #include "sgpc3.h"
 #include "shtc1.h"

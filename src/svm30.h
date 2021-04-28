@@ -31,7 +31,6 @@
 
 #ifndef SVM30_H
 #define SVM30_H
-#include "sensirion_arch_config.h"
 #include "sensirion_common.h"
 #include "sgp30.h"
 #include "shtc1.h"

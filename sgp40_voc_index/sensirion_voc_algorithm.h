@@ -32,8 +32,6 @@
 #ifndef VOCALGORITHM_H_
 #define VOCALGORITHM_H_
 
-#include "sensirion_arch_config.h"
-
 /* The fixed point arithmetic parts of this code were originally created by
  * https://github.com/PetteriAimonen/libfixmath
  */

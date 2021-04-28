@@ -30,7 +30,6 @@
  */
 
 #include "sgp40_voc_index.h"
-#include "sensirion_arch_config.h"
 #include "sensirion_voc_algorithm.h"
 #include "sgp40.h"
 #include "shtc1.h"

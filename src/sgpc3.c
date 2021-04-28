@@ -30,7 +30,6 @@
  */
 
 #include "sgpc3.h"
-#include "sensirion_arch_config.h"
 #include "sensirion_common.h"
 #include "sensirion_i2c.h"
 #include "sgp_git_version.h"
