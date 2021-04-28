@@ -29,62 +29,67 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "sgp40_voc_index.h"
+#include "sensirion_arch_config.h"
+#include "sensirion_voc_algorithm.h"
 #include "sgp40.h"
+#include "shtc1.h"
 
-#include <stdio.h>  // printf
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/* TO USE CONSOLE OUTPUT (printf) YOU MAY NEED TO ADAPT THE
- * INCLUDES ABOVE OR DEFINE THEM ACCORDING TO YOUR PLATFORM.
- * #define printf(...)
- */
+static VocAlgorithmParams voc_algorithm_params;
 
-int main(void) {
-    int16_t err;
-    uint16_t sraw;
-    uint16_t ix;
+int16_t sensirion_init_sensors() {
+    int16_t ret;
 
-    const char* driver_version = sgp40_get_driver_version();
-    if (driver_version) {
-        printf("SGP40 driver version %s\n", driver_version);
-    } else {
-        printf("fatal: Getting driver version failed\n");
-        return -1;
-    }
-
-    /* Initialize I2C bus */
     sensirion_i2c_init();
 
-    /* Busy loop for initialization. The main loop does not work without
-     * a sensor. */
-    while (sgp40_probe() != STATUS_OK) {
-        printf("SGP sensor probing failed\n");
-        sensirion_sleep_usec(1000000);
-    }
-    printf("SGP sensor probing successful\n");
+    ret = shtc1_probe();
+    if (ret)
+        return SENSIRION_SHT_PROBE_FAILED;
 
-    uint8_t serial_id[SGP40_SERIAL_ID_NUM_BYTES];
-    err = sgp40_get_serial_id(serial_id);
-    if (err == STATUS_OK) {
-        printf("SerialID: ");
-        for (ix = 0; ix < SGP40_SERIAL_ID_NUM_BYTES - 1; ix++) {
-            printf("%02X:", serial_id[ix]);
-        }
-        printf("%02X\n", serial_id[ix]);
-    } else {
-        printf("sgp40_get_serial_id failed!\n");
-    }
+    ret = sgp40_probe();
+    if (ret)
+        return SENSIRION_SGP_PROBE_FAILED;
 
-    /* Run periodic measurements at defined intervals */
-    while (1) {
-        err = sgp40_measure_raw_blocking_read(&sraw);
-        if (err == STATUS_OK) {
-            printf("sraw: %u\n", sraw);
-        } else {
-            printf("error reading signal\n");
-        }
-
-        sensirion_sleep_usec(1000000);
-    }
-
+    VocAlgorithm_init(&voc_algorithm_params);
     return 0;
 }
+
+int16_t sensirion_measure_voc_index(int32_t* voc_index) {
+    return sensirion_measure_voc_index_with_rh_t(voc_index, NULL, NULL);
+}
+
+int16_t sensirion_measure_voc_index_with_rh_t(int32_t* voc_index,
+                                              int32_t* relative_humidity,
+                                              int32_t* temperature) {
+    int32_t int_temperature, int_humidity;
+    int16_t ret;
+    uint16_t sraw;
+
+    ret = shtc1_measure_blocking_read(&int_temperature, &int_humidity);
+    if (ret)
+        return SENSIRION_GET_RHT_SIGNAL_FAILED;
+
+    if (temperature) {
+        *temperature = int_temperature;
+    }
+    if (relative_humidity) {
+        *relative_humidity = int_humidity;
+    }
+
+    ret = sgp40_measure_raw_with_rht_blocking_read(int_humidity,
+                                                   int_temperature, &sraw);
+    if (ret) {
+        return SENSIRION_GET_SGP_SIGNAL_FAILED;
+    }
+
+    VocAlgorithm_process(&voc_algorithm_params, sraw, voc_index);
+    return 0;
+}
+
+#ifdef __cplusplus
+}
+#endif
