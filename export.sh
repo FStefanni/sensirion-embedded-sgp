@@ -21,6 +21,7 @@ rm -fr \
     sgp-common \
     sgp30 \
     sgp40 \
+    sgp40_voc_index \
     sgpc3 \
     sgpc3_with_shtc1 \
     svm30 \
