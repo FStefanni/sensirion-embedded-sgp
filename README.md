@@ -1,7 +1,7 @@
 # SENSIRION EMBEDDED SPS
 
 This library is a simple re-packaging of the
-[Sensirion Embedded SPS library](https://github.com/Sensirion/embedded-sps)
+[Sensirion Embedded SGP library](https://github.com/Sensirion/embedded-sgp)
 to simplify its integration in Arduino.
 
 The original code (which is distributed inder BSD license) is here slightly
@@ -11,7 +11,7 @@ changed, to add some useful features.
 
 1. Set Sensirion remote:
    ```
-   git remote set sensirion https://github.com/Sensirion/embedded-sps
+   git remote set sensirion https://github.com/Sensirion/embedded-sgp
    ```
 1. Switch to `merging` branch
     1. Merge new changes:
