@@ -33,9 +33,13 @@
 #include "sensirion_common.h"
 #include "sensirion_i2c.h"
 #include "sgp_git_version.h"
+#include <sensirion-embedded-common.h>
 
 #ifndef STATUS_OK
 #define STATUS_OK 0
+#endif
+#ifndef STATUS_FAIL
+#define STATUS_FAIL 1
 #endif
 
 #define SGP30_PRODUCT_TYPE 0

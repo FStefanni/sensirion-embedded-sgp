@@ -31,6 +31,7 @@
 
 #include "sgp40.h"
 #include "sgp_git_version.h"
+#include <sensirion-embedded-common.h>
 
 #ifndef STATUS_OK
 #define STATUS_OK 0

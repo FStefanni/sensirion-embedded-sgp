@@ -33,6 +33,7 @@
 #include "sensirion_voc_algorithm.h"
 #include "sgp40.h"
 #include "shtc1.h"
+#include <sensirion-embedded-common.h>
 
 #ifdef __cplusplus
 extern "C" {
