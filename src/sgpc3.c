@@ -34,6 +34,10 @@
 #include "sensirion_i2c.h"
 #include "sgp_git_version.h"
 
+#ifndef STATUS_OK
+#define STATUS_OK 0
+#endif
+
 #define SGPC3_PRODUCT_TYPE 1
 static const uint8_t SGPC3_I2C_ADDRESS = 0x58;
 

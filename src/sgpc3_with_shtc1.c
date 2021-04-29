@@ -35,6 +35,10 @@
 #include "sgpc3.h"
 #include "shtc1.h"
 
+#ifndef STATUS_OK
+#define STATUS_OK 0
+#endif
+
 const char* sgpc3_with_shtc1_get_driver_version() {
     return SGP_DRV_VERSION_STR;
 }

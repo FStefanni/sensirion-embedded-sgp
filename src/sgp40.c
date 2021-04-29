@@ -32,6 +32,10 @@
 #include "sgp40.h"
 #include "sgp_git_version.h"
 
+#ifndef STATUS_OK
+#define STATUS_OK 0
+#endif
+
 static const uint8_t SGP40_I2C_ADDRESS = 0x59;
 
 #define SGP40_CMD_MEASURE_RAW_WORDS 1

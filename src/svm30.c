@@ -36,6 +36,10 @@
 #include "sgp_git_version.h"
 #include "shtc1.h"
 
+#ifndef STATUS_OK
+#define STATUS_OK 0
+#endif
+
 static void svm_compensate_rht(int32_t* temperature, int32_t* humidity) {
     *temperature = ((*temperature * 8225) >> 13) - 500;
     *humidity = (*humidity * 8397) >> 13;
