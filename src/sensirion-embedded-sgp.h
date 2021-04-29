@@ -1,6 +1,8 @@
 #ifndef SENSIRION_EMBEDDED_SGP_H
 #define SENSIRION_EMBEDDED_SGP_H
 
+#include <sensirion-embedded-common.h>
+
 #include "sgp_git_version.h"
 #include "sgp30.h"
 #include "sgp40_voc_index.h"
